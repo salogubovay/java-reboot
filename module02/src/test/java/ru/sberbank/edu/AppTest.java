@@ -1,38 +1,21 @@
 package ru.sberbank.edu;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.io.File;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
+public class AppTest {
+    
     /**
-     * Create the test case
-     *
-     * @param testName name of the test case
+     * Метод проверяет, что при запуске метод main создаётся файл report.txt
      */
-    public AppTest( String testName )
-    {
-        super( testName );
+    @Test
+    public void app_shouldGetCorrectStatistics() {
+        String[] args = new String[] { "src/test/resources/hello_world.txt" };
+        App.main(args);
+        File result = new File("report.txt");
+        Assertions.assertThat(result.exists()).isTrue();
+        result.delete();
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
 }
