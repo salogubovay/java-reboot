@@ -3,6 +3,7 @@ package ru.sberbank.edu;
 
 import org.h2.tools.Server;
 import ru.sberbank.edu.dbconnection.H2DbEmbedded;
+import ru.sberbank.edu.model.Car;
 import ru.sberbank.edu.repository.CarDbRepositoryImpl;
 import ru.sberbank.edu.repository.CarRepository;
 import ru.sberbank.edu.service.CarService;
@@ -10,6 +11,7 @@ import ru.sberbank.edu.service.CarServiceImpl;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Set;
 
 public class CarBootstrap {
     public static void main(String[] args) throws Exception {
@@ -32,7 +34,36 @@ public class CarBootstrap {
                 String model = resultSet.getString(2);
                 System.out.println("id=" + id + "; model=" + model);
             }
-            // Test end
+
+            carService.addCar("888", "Lada");
+            carService.addCar("666", "UAZ");
+            
+            System.out.println("\nFind all after addition: ");
+            Set<Car> cars = carRepository.findAll();
+            for (Car car : cars) {
+                System.out.println(car);
+            }
+            
+            System.out.println("\nFind by model = UAZ");
+            Set<Car> carsModel = carRepository.findByModel("UAZ");
+            for (Car car : carsModel) {
+                System.out.println(car);
+            }
+
+            carService.deleteCar("777");
+            System.out.println("\nFind all after deletion of id = 777: ");
+            Set<Car> carsAfterIdDeletion = carRepository.findAll();
+            for (Car car : carsAfterIdDeletion) {
+                System.out.println(car);
+            }
+            
+            carRepository.deleteAll();
+            System.out.println("\nFind all after deletion of all records: ");
+            Set<Car> carsAfterDeletion = carRepository.findAll();
+            for (Car car : carsAfterDeletion) {
+                System.out.println(car);
+            }
+            // Test end            
         }
         server.stop();
     }
