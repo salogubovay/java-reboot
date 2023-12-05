@@ -1,0 +1,19 @@
+body {
+    background-color: #11ffee0e;
+    font-family: "Andale Mono", monospace;
+    width: 600px;
+}
+
+#engines {
+    width: 555px;
+    border: 3px black solid;
+}
+
+#characteristics {
+    list-style: none;
+}
+
+li {
+  margin-bottom: 7px; 
+  position: relative;
+}
