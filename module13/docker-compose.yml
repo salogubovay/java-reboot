@@ -1,0 +1,27 @@
+services:
+    db:
+        image: postgres
+        container_name: db
+        environment:
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+        volumes:
+            - app:/home/node/app
+        ports:
+            - 8085:5432
+    app:
+        image: users_app_image
+        container_name: users_app
+        build:
+            context: .
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+        ports:
+            - 8080:8080
+        depends_on:
+            - db
+volumes:
+    app:
+            
+        
